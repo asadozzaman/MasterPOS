@@ -1,0 +1,125 @@
+
+
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+<div class="container-fluid list-products">
+    <div class="row">
+      <!-- Individual column searching (text inputs) Starts-->
+      <div class="col-md-1">
+        <form method="post" action="{% url 'order-filter-return' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_filter" value="day" />
+          <button class="btn btn-primary"> Daily </button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form  method="post" action="{% url 'order-filter-return' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_filter" value="month" />
+          <button class="btn btn-primary"> Monthly </button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form  method="post" action="{% url 'order-filter-return' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_filter" value="year" />
+          <button class="btn btn-primary"> Yearly </button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form  method="post" action="{% url 'order-filter-return' %}">
+          {% csrf_token %}
+          <input type="hidden" name="order_filter" value="all" />
+          <button class="btn btn-primary"> All </button>
+        </form>
+      </div>
+
+      <div class="col-md-5">
+        <form  method="post" action="{% url 'order-filter-return' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-4">
+              <input class="form-control" type="date" name="start_date" required/>
+            </div>
+            <div class="col-md-4">
+              <input class="form-control" type="date" name="end_date" required/>
+              <input type="hidden" name="order_filter" value="date_to_date" />
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary"> Submit </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        {% if output is not None %}
+        <h5 class="text-info">{{output}}</h5>
+        {% endif %}
+      </div>
+     
+
+      <div class="col-md-12 mt-3">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h5>Return By Order</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive product-table">
+              <table class="display" id="basic-1">
+                <thead>
+                  <tr>
+                    
+                    <th class="text-center">SL</th>
+                    <th>Total</th>
+                    <th>Due</th>
+                    <th>Detail</th>
+                    <th>Date</th>
+
+                  
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td>
+                          <div class="product-name text-center"><a href="{% url 'retailer-deposit-amount-order-pdf' order.id order.retailerID.unique_id %}" target="_blank"> 
+                          <h6 class="txt-info">{{order.unique_id}}</h6></a></div> 
+                          
+                    </td>
+                    <td>${{order.duePrice}}</td>
+                    <td>${{order.totalPrice}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'retailer-return-detail' order.id %}" data-original-title="btn btn-danger btn-xs" title="">Datail</a>
+                      </td>
+                    <td>{{order.created_at}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Individual column searching (text inputs) Ends-->
+    </div>
+  </div>
+{% endblock body %}
+
+
+
+{% block js %}
+
+    <script>
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+      </script>
+      
+
+      
+     
+{% endblock %}

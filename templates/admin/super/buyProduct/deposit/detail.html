@@ -1,0 +1,172 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+{% load custom_filters %}
+
+
+<div class="container-fluid">
+    <div class="user-profile">
+      <div class="row">
+        <!-- user profile header start-->
+        <div class="col-sm-12">
+          <div class="card profile-header"><img class="img-fluid bg-img-cover" src="{% static 'assets/images/user-profile/bg-profile.jpg' %}" alt="">
+            <div class="profile-img-wrrap"><img class="img-fluid bg-img-cover" src="{% static 'assets/images/user-profile/bg-profile.jpg' %}" alt=""></div>
+            <div class="userpro-box">
+              <div class="img-wrraper">                              
+                <div class="avatar"><img class="img-fluid" alt="" src="{% static 'assets/images/user/7.jpg' %}"></div>
+              </div>
+              <div class="user-designation">
+                <div class="title"><a target="_blank" href="#"> 
+                    <h4>{{customer.user.first_name}}</h4></a>
+                  <h6>Basic</h6>
+                </div>
+                <div class="social-media">
+                  <ul class="user-list-social">
+                    <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="https://www.twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="https://www.rss.com/" target="_blank"><i class="fa fa-rss"></i></a></li>
+                  </ul>
+                </div>
+                <div class="follow">
+                  <ul class="follow-list">
+                    <li>
+                      <div class="follow-num counter">${{customer.totalSpent}}</div><span>Total</span>
+                    </li>
+                    <li>
+                      <div class="follow-num counter">${{customer.due}}</div><span>Due</span>
+                    </li>
+                    <li>
+                      <div class="follow-num counter">${{ customer.totalSpent|sub:customer.due }}  </div><span>Paid</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- user profile header end-->
+        <div class="col-xl-3 col-md-5 xl-35 box-col-35">
+          <div class="default-according style-1 job-accordion">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="p-0">
+                      <button class="btn btn-link ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon2" aria-expanded="true" aria-controls="collapseicon2">About</button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" id="collapseicon2" aria-labelledby="collapseicon2" data-parent="#accordion">
+                    <div class="card-body post-about">
+                      <ul>
+                        <li>
+                          <div class="icon"><i data-feather="briefcase"></i></div>
+                          <div>
+                            <h5>Mobile Number</h5>
+                            <p>{{customer.user.mobile_number}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5>Address</h5>
+                            <p>{{customer.user.address}}</p>
+                          </div>
+                        </li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-7 xl-65 box-col-65">
+          <div class="row">
+            <!-- profile post start-->
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card">
+                        <div class="card-header pb-0">
+                          <h5>Order</h5>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="order-history table-responsive wishlist">
+                              <table class="table table-bordered display"  id="basic-1">
+                                <thead>
+                                  <tr>
+                                    <th>Order SL</th>
+                                    <th>Due</th>
+                                    <th>Pay</th>
+                                    <th>Action</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders  %}
+                                  <tr>
+                                    <td>
+                                      <div class="product-name"><a href="{% url 'retailer-deposit-amount-order-pdf' order.id customer.unique_id %}" target="_blank"> 
+                                          <h6 class="txt-info">{{order.unique_id}}</h6></a></div>
+                                    </td>
+                                    <td>${{order.duePrice}}</td>
+                                    <form method="post" action="{% url 'deposit-amount-post' %}">
+                                        {% csrf_token %}
+                                    <td>
+                                        <input class="form-control text-center" type="number" min="1" name="amount" required>
+                                        <input  type="hidden"  name="orderID" value="{{order.id}}">
+                                        <input   type="hidden" name="customer_unique_id" value="{{customer.unique_id}}">
+                                    </td>
+                                    <td><button class="btn btn-success" type="submit"> Add </button></td>
+                                    </form>
+                                    <td>${{order.totalPrice}}</td>
+                                    <td>{{order.created_at}}</td>
+                                  </tr>
+                                    {% endfor %}
+                                  
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!-- profile post end-->
+                                  
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+
+
+
+{% block js %}
+
+    <script>
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+      </script>
+      
+
+      
+     
+{% endblock %}

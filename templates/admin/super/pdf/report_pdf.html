@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .invoice-details {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .invoice-details .left {
+            flex: 1;
+        }
+
+        .invoice-details .right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .invoice-details p {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .total span {
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Invoice</h1>
+        <div class="invoice-details">
+            <div class="left">
+                <p>Company Name</p>
+                <p>Address Line 1</p>
+                <p>Address Line 2</p>
+                <p>City, State, ZIP</p>
+            </div>
+            <div class="right">
+                <p>Invoice Number: INV-001</p>
+                <p>Invoice Date: June 15, 2023</p>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Item 1</td>
+                    <td>2</td>
+                    <td>$10</td>
+                    <td>$20</td>
+                </tr>
+                <tr>
+                    <td>Item 2</td>
+                    <td>1</td>
+                    <td>$15</td>
+                    <td>$15</td>
+                </tr>
+                <tr>
+                    <td>Item 3</td>
+                    <td>3</td>
+                    <td>$8</td>
+                    <td>$24</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total">
+            <p><span>Total:</span> $59</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

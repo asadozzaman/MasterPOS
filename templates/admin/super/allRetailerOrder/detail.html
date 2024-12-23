@@ -1,0 +1,197 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+{% load custom_filters %}
+
+
+<div class="container-fluid">
+    <div class="user-profile">
+      <div class="row">
+        
+        <!-- user profile header end-->
+        <div class="col-xl-3 col-md-5 xl-35 box-col-35">
+          <div class="default-according style-1 job-accordion">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="p-0">
+                      <button class="btn btn-link ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon2" aria-expanded="true" aria-controls="collapseicon2">About</button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" id="collapseicon2" aria-labelledby="collapseicon2" data-parent="#accordion">
+                    <div class="card-body post-about">
+                      <ul>
+                        <li>
+                          <div class="icon"><i data-feather="briefcase"></i></div>
+                          <div>
+                            <h5>Customer Name</h5>
+                            <p>{{customer.customerID.user.first_name}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5>Mobile Number</h5>
+                            <p>{{customer.mobile_number}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5>Address</h5>
+                            <p>{{customer.address}}</p>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5>Order ID</h5>
+                            <p>{{order.unique_id}}</p>
+                          </div>
+                        </li>
+                       
+
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Total Price</h5>
+                            <p>{{order.totalPrice}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Sub Total Price</h5>
+                            <p>{{order.subPrice}}</p>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Vat</h5>
+                            <p>{{order.vat}}$---{{order.vatParcent}}%</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Discount</h5>
+                            <p>{{order.discount}}$---{{order.discountParcent}}%</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Transport</h5>
+                            <p>{{order.transport}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Retrun How Many Time</h5>
+                            <p>{{order.returnTime}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Created At</h5>
+                            <p>{{order.created_at}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5> Last Update</h5>
+                            <p>{{order.updated_at}}</p>
+                          </div>
+                        </li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-md-7 xl-65 box-col-65">
+          <div class="row">
+            <!-- profile post start-->
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card">
+                        <div class="card-header pb-0">
+                          <h5>Product List</h5>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="order-history table-responsive wishlist">
+                              <table class="table table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th>Product Name</th>
+                                    <th>Sell Price</th>
+                                    <th>Unit</th>
+                                    <th>Sub Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <form method="post" action="{% url 'return-post' %}">
+                                        {% csrf_token %}
+                                        <input  type="hidden"  name="orderID" value="{{order.id}}">
+                                    {% for product in products  %}
+                                  <tr>
+                                    <td>
+                                      {{product.productID.name}}
+                                    </td>
+                                    <td>${{product.sellPrice}}</td>
+                                    <td>{{product.unit}}</td>
+                                   
+                                    
+                                   
+                                    <td>${{product.sellPrice|mul:product.unit}}</td>
+                                  </tr>
+                                    {% endfor %}
+                                    
+                                </form>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!-- profile post end-->
+                                  
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+
+
+
+{% block js %}
+
+   
+
+      
+     
+{% endblock %}

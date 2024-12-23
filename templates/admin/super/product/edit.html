@@ -1,0 +1,95 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+<div class="container-fluid add-product">
+  <div class="row"> 
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="product-info">
+            <h5>Product</h5>
+            <form method="post" action="{% url 'product-update' product.id %}">
+              {% csrf_token %}
+              <div class="product-group">
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Product Name</label>
+                      <input class="form-control" placeholder="Enter Product Name" type="text" name="name" value={{product.name}}>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">   
+                  <div class="col-sm-12">  
+                    <div class="mb-3">
+                      <label class="form-label">Product Category</label>
+                      <select class="form-select  js-example-basic-single" name="category"> 
+                       {% for productCategory in productCategory %}
+                       <option value="{{productCategory.id}}"  {% if  productCategory.id == product.category.id %} selected {% endif %}>{{ productCategory.name }} </option>
+                       {% endfor %}
+                       
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">   
+                  <div class="col-sm-12">  
+                    <div class="mb-3">
+                      <label class="form-label">Product Unit</label>
+                      <select class="form-select  js-example-basic-single" name="unit">
+                        {% for productUnit in productUnit %}
+                       <option value="{{productUnit.id}}" {% if  productUnit.id == product.unit.id %} selected {% endif %}>{{ productUnit.name }}</option>
+                       {% endfor %}
+                       
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">  
+                      <label class="form-label">Buy Price</label>
+                      <input class="form-control" type="text" name="buyPrice" value={{product.buyPrice}}  pattern="\d+(\.\d{1,2})?" title="Please enter a number with up to two decimal places">
+                    </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">  
+                      <label class="form-label">Sell Price</label>
+                      <input class="form-control" type="text" name="sellPrice" value={{product.sellPrice}}  pattern="\d+(\.\d{1,2})?" title="Please enter a number with up to two decimal places">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">  
+                      <label class="form-label">Discount</label>
+                      <input class="form-control" type="text" name="discount" value={{product.discount}}  pattern="\d+(\.\d{1,2})?" title="Please enter a number with up to two decimal places">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">  
+                      <label class="form-label">Stock</label>
+                      <input class="form-control" type="number" name="stock" value={{product.stock}} >
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary me-3" type="submit">Update </button>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock body %}

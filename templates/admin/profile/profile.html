@@ -1,0 +1,131 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+{% load custom_filters %}
+
+
+<div class="container-fluid">
+    <div class="user-profile">
+      <div class="row">
+        <!-- user profile header start-->
+        <div class="col-sm-12">
+          <div class="card profile-header"><img class="img-fluid bg-img-cover" src="{% static 'assets/images/user-profile/bg-profile.jpg' %}" alt="">
+            <div class="profile-img-wrrap"><img class="img-fluid bg-img-cover" src="{% static 'assets/images/user-profile/bg-profile.jpg' %}" alt=""></div>
+            <div class="userpro-box">
+              <div class="img-wrraper">                              
+                <div class="avatar"><img class="img-fluid" alt="" src="{% static 'assets/images/user/7.jpg' %}"></div>
+              </div>
+              <div class="user-designation">
+                <div class="title"><a target="_blank" href="#"> 
+                    <h4>{{request.user.first_name}}</h4></a>
+                  <h6>Admin</h6>
+                </div>
+                <div class="social-media">
+                  <ul class="user-list-social">
+                    <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="https://www.twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="https://www.rss.com/" target="_blank"><i class="fa fa-rss"></i></a></li>
+                  </ul>
+                </div>
+                <div class="follow">
+                  <ul class="follow-list">
+                    <li>
+                      <div class="follow-num counter">$666</div><span>Total</span>
+                    </li>
+                    <li>
+                      <div class="follow-num counter">$777</div><span>Due</span>
+                    </li>
+                    <li>
+                      <div class="follow-num counter">$999  </div><span>Paid</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- user profile header end-->
+        <div class="col-xl-3 col-md-5 xl-35 box-col-35">
+          <div class="default-according style-1 job-accordion">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="p-0">
+                      <button class="btn btn-link ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon2" aria-expanded="true" aria-controls="collapseicon2">About</button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" id="collapseicon2" aria-labelledby="collapseicon2" data-parent="#accordion">
+                    <div class="card-body post-about">
+                      <ul>
+                        <li>
+                          <div class="icon"><i data-feather="briefcase"></i></div>
+                          <div>
+                            <h5>Mobile Number</h5>
+                            <p>{{request.user.mobile_number}}</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="icon"><i data-feather="book"></i></div>
+                          <div>
+                            <h5>Address</h5>
+                            <p>{{request.user.address}}</p>
+                          </div>
+                        </li>
+
+                        <li>
+                          <a class="btn btn-info w-100" href="{% url 'profile_change_password' %}"> Change Password </a>
+                        </li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-7 xl-65 box-col-65">
+          <div class="row">
+            <!-- profile post start-->
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="row">
+                    <div class="col-sm-12">
+                      
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!-- profile post end-->
+                                  
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+
+
+
+{% block js %}
+
+    <script>
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+      </script>
+      
+
+      
+     
+{% endblock %}

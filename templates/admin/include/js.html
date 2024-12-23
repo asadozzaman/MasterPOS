@@ -1,0 +1,74 @@
+{% load static %}
+
+
+ <!-- latest jquery-->
+ <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+ <!-- Bootstrap js-->
+ <script src="{% static 'assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+ <!-- feather icon js-->
+ <script src="{% static 'assets/js/icons/feather-icon/feather.min.js' %}"></script>
+ <script src="{% static 'assets/js/icons/feather-icon/feather-icon.js' %}"></script>
+ <!-- scrollbar js-->
+ <script src="{% static 'assets/js/scrollbar/simplebar.js' %}"></script>
+ <script src="{% static 'assets/js/scrollbar/custom.js' %}"></script> 
+ <!-- Sidebar jquery-->
+ <script src="{% static 'assets/js/config.js' %}"></script>
+ <!-- Plugins JS start-->
+ <script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+ {% comment %} <script src="{% static 'assets/js/chart/chartist/chartist.js' %}"></script>
+ <script src="{% static 'assets/js/chart/chartist/chartist-plugin-tooltip.js' %}"></script>
+ <script src="{% static 'assets/js/chart/knob/knob.min.js' %}"></script>
+ <script src="{% static 'assets/js/chart/knob/knob-chart.js' %}"></script>
+ <script src="{% static 'assets/js/chart/apex-chart/apex-chart.js' %}"></script>
+ <script src="{% static 'assets/js/chart/apex-chart/stock-prices.js' %}"></script>
+ <script src="{% static 'assets/js/prism/prism.min.js' %}"></script>
+ <script src="{% static 'assets/js/clipboard/clipboard.min.js' %}"></script>
+ <script src="{% static 'assets/js/custom-card/custom-card.js' %}"></script>
+ <script src="{% static 'assets/js/notify/bootstrap-notify.min.js' %}"></script>
+ <script src="{% static 'assets/js/dashboard/default.js' %}"></script>
+ <script src="{% static 'assets/js/notify/index.js' %}"></script>
+ <script src="{% static 'assets/js/slick-slider/slick.min.js' %}"></script>
+ <script src="{% static 'assets/js/slick-slider/slick-theme.js' %}"></script>
+ <script src="{% static 'assets/js/typeahead/handlebars.js' %}"></script>
+ <script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+ <script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script>
+ <script src="{% static 'assets/js/typeahead-search/handlebars.js' %}"></script>
+ <script src="{% static 'assets/js/typeahead-search/typeahead-custom.js' %}"></script> {% endcomment %}
+ <!-- Plugins JS Ends-->
+ <script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+ <script src="{% static 'assets/js/datatable/datatables/datatable.custom.js' %}"></script>
+ <!-- Theme js-->
+ <script src="{% static 'assets/js/script.js' %}"></script>
+ {% comment %} <script src="{% static 'assets/js/theme-customizer/customizer.js' %}"></script> {% endcomment %}
+ <!-- login js-->
+
+ <script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+ <script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+
+
+<script src="{% static 'assets/js/dropzone/dropzone.js' %}"></script>
+<script src="{% static 'assets/js/dropzone/dropzone-script.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+  
+<script>
+  $('#basic-6').DataTable({
+    'order': [[1, 'desc']]  // Order by the first column in descending order
+});
+</script>
+
+{% comment %} mobile code {% endcomment %}
+{% comment %} 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      nationalMode: false,
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+  </script> {% endcomment %}

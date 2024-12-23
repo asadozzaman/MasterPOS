@@ -1,0 +1,125 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+
+<div class="container-fluid default-dash2">
+  <div class="row mb-5"> 
+    <div class="col-md-1 mb-1">
+      <form method="post" action="{% url 'admin_dashboard_filter' %}">
+        {% csrf_token %}
+        <input type="hidden" name="order_filter" value="day" />
+        <button class="btn btn-primary"> Daily </button>
+      </form>
+    </div>
+    <div class="col-md-1 mb-1">
+      <form  method="post" action="{% url 'admin_dashboard_filter' %}">
+        {% csrf_token %}
+        <input type="hidden" name="order_filter" value="month" />
+        <button class="btn btn-primary"> Monthly </button>
+      </form>
+    </div>
+    <div class="col-md-1 mb-1">
+      <form  method="post" action="{% url 'admin_dashboard_filter' %}">
+        {% csrf_token %}
+        <input type="hidden" name="order_filter" value="year" />
+        <button class="btn btn-primary"> Yearly </button>
+      </form>
+    </div>
+    <div class="col-md-1 mb-1">
+      <form  method="post" action="{% url 'admin_dashboard_filter' %}">
+        {% csrf_token %}
+        <input type="hidden" name="order_filter" value="all" />
+        <button class="btn btn-primary"> All </button>
+      </form>
+    </div>
+
+    <div class="col-md-5 mb-1">
+      <form  method="post" action="{% url 'admin_dashboard_filter' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4">
+            <input class="form-control" type="date" name="start_date" required/>
+          </div>
+          <div class="col-md-4 mb-1">
+            <input class="form-control" type="date" name="end_date" required/>
+            <input type="hidden" name="order_filter" value="date_to_date" />
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-primary"> Submit </button>
+          </div>
+        </div>
+        
+        
+        
+        
+      </form>
+    </div>
+
+    <div class="col-md-3">
+      {% if output is not None %}
+      <h5 class="text-info">{{output}}</h5>
+      {% endif %}
+    </div>
+
+  </div>
+
+
+  <div class="row">  
+
+    <div class=" col-md-3">
+      <div class="card">
+        <div class="card-header bg-primary pb-0 text-center">
+          <h3 class="text-white">Sell</h3>
+        </div>
+        <div class="card-body bg-primary text-center pb-5">
+          <h4 class="mb-0">$ {{sell|floatformat:2}}</h4>
+        </div>
+       
+      </div>
+    </div>
+    <div class=" col-md-3">
+      <div class="card">
+        <div class="card-header bg-info pb-0 text-center">
+          <h3 class="text-white">Paid</h3>
+        </div>
+        <div class="card-body bg-info text-center pb-5">
+          <h4 class="mb-0">$ {{paid|floatformat:2}}</h4>
+        </div>
+       
+      </div>
+    </div>
+    <div class=" col-md-3">
+      <div class="card">
+        <div class="card-header bg-warning pb-0 text-center">
+          <h3 class="text-white">Due</h3>
+        </div>
+        <div class="card-body bg-warning text-center pb-5">
+          <h4 class="mb-0">$ {{due|floatformat:2}}</h4>
+        </div>
+       
+      </div>
+    </div>
+    <div class=" col-md-3">
+      <div class="card">
+        <div class="card-header bg-danger pb-0 text-center">
+          <h3 class="text-white">Order</h3>
+        </div>
+        <div class="card-body bg-danger text-center pb-5">
+          <h4 class="mb-0"> {{order}}</h4>
+        </div>
+       
+      </div>
+    </div>
+
+
+
+  
+        
+    
+
+
+
+  </div>
+</div>
+{% endblock body %}

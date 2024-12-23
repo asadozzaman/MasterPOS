@@ -1,0 +1,824 @@
+{% extends 'admin/base.html' %} {% load static %} {% block title %} Cart lab
+test {% endblock title %} {% block body %}
+
+<div class="container-fluid add-product">
+  <form method="post" action="{% url 'retailer-sell-add-post' %}">
+    {% csrf_token %}
+  <div class="row">
+    
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="product-info">
+            <div class="row">
+              <div class="col-xl-6">
+                
+                  <div class="product-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+
+                        <button
+                          class="btn btn-primary w-100"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-original-title="test"
+                          data-bs-target="#exampleModal"
+                        >
+                          New Retailer Add
+                        </button>
+                      </div>
+                      <div class="col-sm-12 mt-3">
+                        <div class="mb-3">
+                          <label class="form-label">Retailer</label>
+                          <select
+                            class="form-select js-example-basic-single"
+                            name="category"
+                            id="infoCustomer"
+                            required
+                          >
+                            <option>Select Retailer</option>
+                            {% for customer in customers %}
+                            <option value="{{customer.unique_id}}">
+                              {{ customer.user.first_name }} 
+                            </option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="mb-3">
+                          <label class="form-label">Mobile No.</label>
+                          <input class="form-control" type="text" id="mobileInfo" name="mobile_number" />
+                          <input class="form-control" type="hidden" id="customerID"  name="customerID" />
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="mb-3">
+                          <label class="form-label">Address</label>
+                          <input class="form-control" type="text" id="addressInfo" name="address" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+              <div class="col-xl-6">
+              
+                  <div class="product-group mt-2">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <div class="mb-3">
+                          <label class="form-label">Product</label>
+                          <select
+                            class="form-select js-example-basic-single"
+                            name="unit" id="mySelect"
+                          >
+                            <option>Select Product</option>
+                            {% for product in product %}
+                            <option value="{{product.id}}">
+                              {{ product.name }}
+                            </option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label class="form-label">Stock</label>
+                          <p id="stockAmount" class="bg-danger rounded p-3 text-center"></P>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                   
+                      <div class="col-sm-4">
+                        
+
+                        <div class="mb-3">
+                          <label class="form-label">Sales Rate</label>
+                          <input class="form-control" type="number" id="sellPrice" />
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label class="form-label">Qty</label>
+                          <input class="form-control" type="number" id="totalQty"  min="1" />
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label class="form-label">Total Discount</label>
+                          <input class="form-control" type="text" id="totalDiscount" min="1"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          {% comment %} <label class="form-label">Total Amount</label> {% endcomment %}
+                          <input class="form-control" type="hidden" id="totalAMount" min="1"/>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <button
+                          class="btn btn-info w-100"
+                          id="addProduct"
+                          type="button"
+                          
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+               
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-xl-12">
+                <div class="table-responsive product-table">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Sales Rate</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Total Rate</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="report_dynamic_field">
+                    
+
+                    
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="product-info">
+            <h5>Amount</h5>
+           
+              <div class="product-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Sub Total</label>
+                      <input class="form-control" type="number" value="0.0" id="subTotal" name="subPrice" readonly />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class="form-label">Vat</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <input
+                        class="form-control"
+                        type="number"
+                        placeholder="type %"
+                        id="vatInput"
+                        min="1"
+                      />
+                      <input type="hidden"  id="vatInput2" value="0"  name="vatInput2" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                    
+
+
+                      <input class="form-control" type="number" value="0" id="vatOutput" name="vat" readonly />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class="form-label">Discount Percentage</label> 
+                    
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <input
+                        class="form-control"
+                        type="number"
+                        placeholder="type %"
+                        min="1"
+                        id="discountInput" 
+                      />
+                      <input type="hidden"  id="discountInput2" value="0"  name="discountInput2" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <input class="form-control" type="number" value="0"  id="discountOutput" name="discount"  readonly />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Transport Cost</label>
+                      <input class="form-control" type="number" placeholder="type cost"  min="1" id="transportCost1"   />
+                      <input type="hidden"  id="transportCost2" value="0"  name="transport" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label">Total</label>
+                      <input class="form-control" type="number"  id="allTotalAmount" name="totalPrice" readonly  />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label">Paid</label>
+                      <input class="form-control" type="number"   min="1" step="0.01" id="paidCost1"  /> 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label">Due</label>
+                      <input class="form-control" type="number" value="0" id="allTotalDue" name="duePrice"  readonly />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label class="form-label">Previous Due</label>
+                      <input class="form-control" type="number" value="0" id="previousDue" readonly />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                <div class="col-sm-12 text-end mb-2">
+                  <a class="btn btn-warning me-3 w-100" id="fullPaid"
+                    >Full Paid
+                  </a>
+                </div>
+                <div class="col-sm-6 text-end">
+                  <button class="btn btn-success me-3 w-100" type="submit"
+                    >Sells
+                  </button>
+                </div>
+                <div class="col-sm-6 text-end">
+                  <a class="btn btn-danger me-3 w-100" href="product.html"
+                    >Reset
+                  </a>
+                </div>
+              </div>
+              </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</form>
+</div>
+
+
+
+
+<!-- start modal-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          class="btn-close"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'retailer-add-post-sell' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="mb-3">
+                <label class="form-label">Retailer Name</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Retailer Name"
+                  type="text"
+                  name="name"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="mb-3">
+                <label class="form-label">Mobile Number</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Mobile Number"
+                  type="phone"
+                  name="mobile_number"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Address"
+                  type="text"
+                  name="address"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-info" type="submit">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" type="button" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal-->
+
+{% endblock body %}
+
+
+
+{% block js %}
+
+
+<script>
+
+
+
+
+
+    // Start customer get
+
+  $(document).ready(function () {
+    var infoCustomerdValue = $("#infoCustomer");
+    
+    $("#infoCustomer").on('change', function() {
+      
+      var r_button_id = infoCustomerdValue.val();
+      //console.log('jjjjjjjjjj');
+     
+      console.log('kkkkkkkkkkk',r_button_id);
+      var i = 1;
+       $.ajax({
+        url: "{% url 'retailer-sell-ajax-customer-info' %}",
+        type: 'get',
+        dataType: 'json',
+        data: {
+          offset: r_button_id // Pass any necessary data, such as the current offset of the content
+        },
+       
+        success: function(response) {
+          
+          console.log('nnn');
+          console.log(response.data.customersList);
+          $("#previousDue").val(response.data.customersList.due);
+          $("#mobileInfo").val(response.data.customersList.mobile_number);
+          $("#addressInfo").val(response.data.customersList.address);
+          $("#customerID").val(response.data.customersList.customerID);
+        
+          
+
+        },
+        error: function() {
+          // Handle any errors
+          alert('Error loading more content.');
+        }
+      });
+        
+    });
+    });
+  // end customer get
+
+
+
+
+
+
+  // Start sell_ajax_product_get
+
+
+$(document).ready(function () {
+  var selectedValue = $("#mySelect");
+ 
+
+  
+  
+  $("#mySelect").on('change', function() {
+    
+    var r_button_id = selectedValue.val();
+    //console.log('jjjjjjjjjj');
+   
+    //console.log('kkkkkkkkkkk',r_button_id);
+    var i = 1;
+     $.ajax({
+      url: "{% url 'retailer-sell-ajax-product-get' %}",
+      type: 'get',
+      dataType: 'json',
+      data: {
+        offset: r_button_id // Pass any necessary data, such as the current offset of the content
+      },
+     
+      success: function(response) {
+
+        $("#sellPrice").val(response.data.productsList.sellPrice);
+        $("#stockAmount").text(response.data.productsList.stock);
+        $("#totalDiscount").val(response.data.productsList.discount);
+
+        // trigger is important cause it's link    $("#totalQty").on('input', function() { this line
+        $("#totalQty").trigger('input');
+        
+      },
+      error: function() {
+        // Handle any errors
+        alert('Error loading more content.');
+      }
+    });
+      
+  });
+
+
+
+
+  $("#totalQty").on('input', function() {
+
+    var sellPrice = $("#sellPrice").val();
+    var totalQty = $("#totalQty").val();
+    var totalDiscount = $("#totalDiscount").val();
+    
+    var discountRate = sellPrice * (totalDiscount / 100)
+    var discounted_price = sellPrice - discountRate
+    var totalAMount = discounted_price * totalQty
+
+    $("#totalAMount").val(totalAMount);
+  
+
+
+    
+  });
+
+
+
+});
+
+// end sell_ajax_product_get
+
+
+
+
+// Start sell_ajax_product_add
+
+
+  $(document).ready(function () {
+    var i = 1;
+    $('#addProduct').click(function () {
+
+    var sellPrice = $("#sellPrice").val();
+    var totalQty = $("#totalQty").val();
+    var totalDiscount = $("#totalDiscount").val();
+
+    var totalAMount = sellPrice * totalQty
+
+
+        var productID = $("#mySelect").val();
+
+        $.ajax({
+          url: "{% url 'retailer-sell-ajax-product-add' %}",
+          type: 'get',
+          dataType: 'json',
+          data: {
+            productID: productID, // Pass any necessary data, such as the current offset of the content
+            sellPrice: sellPrice,
+            totalQty: totalQty,
+            totalDiscount: totalDiscount,
+
+          },
+         
+          success: function(response) {
+            console.log('nnn');
+            console.log(response);
+            if (response.success) {
+              Swal.fire('Error', response.message, 'error');
+          } 
+
+
+            $('#report_dynamic_field').append('<tr style="margin: 5px;" id="row' + i + '"><td>' + i + '</td>'+'<input type="hidden" name="productID" value=" '+ response.data.productsList.id + ' "  + />' + '<input type="hidden" name="sellPrice" value=" '+ response.data.productsList.sellPrice + ' "  + />' + '<input type="hidden" name="totalQty" value=" '+ response.data.productsList.totalQty + ' "  + />' + '<td data-id=" '+ i +' ">' + response.data.productsList.name + '</td><td data-id=" '+ i +' ">' + response.data.productsList.sellPrice + '</td><td data-id=" '+ i +' ">' + response.data.productsList.discount + '</td><td class="sum-value" data-id=" '+ i +' ">' + response.data.productsList.totalSinglePrice + '</td><td data-id=" '+ i +' ">' + response.data.productsList.totalQty + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+            
+            var sum = 0;
+            $('.sum-value').each(function() {
+              var value = parseInt($(this).text());
+              if (!isNaN(value)) {
+                sum += value;
+              }
+            });
+            $("#subTotal").val(sum);
+            $("#allTotalAmount").val(sum);
+            $("#allTotalDue").val(sum);
+            //console.log("Sum:", sum); 
+            
+            $("#sellPrice").val('');
+            $("#totalQty").val('');
+            $("#totalAMount").val('');
+            $("#totalDiscount").val('');
+
+  
+
+
+            i = i+1
+            
+          },
+          error: function() {
+            // Handle any errors
+            alert('Error loading more content.');
+          }
+        });
+    });
+      
+
+}); 
+
+// end sell_ajax_product_add
+
+
+$(document).on('click', '.btn_remove', function () {
+  var button_id = $(this).attr("id");
+  console.log('button_id',button_id);
+  $('#row' + button_id + '').remove();
+
+  var sum = 0;
+            $('.sum-value').each(function() {
+              var value = parseInt($(this).text());
+              if (!isNaN(value)) {
+                sum += value;
+              }
+            });
+            $("#subTotal").val(sum);
+
+});
+
+
+
+
+// Vat start
+$(document).ready(function() {
+
+  var vatInput = $('#vatInput');
+  var vatOutput = $('#vatOutput');
+  var vatInput2 = $('#vatInput2');
+
+  vatInput.on('input', function() {
+    
+    
+    var input1Value = vatInput.val();
+    
+    var subTotal = $("#subTotal").val();
+
+  
+
+    var mainValue = (input1Value / 100) * subTotal;
+    var formattedNumber = mainValue.toFixed(2);
+    var vatDecimalNumber = parseFloat(formattedNumber);
+    var vatsubTotal = parseFloat(subTotal);
+
+    var afterallTotalAmount = vatDecimalNumber
+    var afterallTotalDue = vatDecimalNumber
+    vatOutput.val(vatDecimalNumber);
+    vatInput2.val(input1Value);
+    
+    
+    var afterVat = vatDecimalNumber+vatsubTotal
+
+    $("#allTotalAmount").val(afterVat);
+    $("#allTotalDue").val(afterVat);
+  });
+  
+});
+// Vat End
+
+
+
+// discount start
+$(document).ready(function() {
+
+  var discountInput = $('#discountInput');
+  var discountOutput = $('#discountOutput');
+  var discountInput2 = $('#discountInput2');
+   
+  discountInput.on('input', function() {
+    
+    
+    var discount1Value = discountInput.val();
+
+    if (discount1Value == '') {
+      discount1Value = 0
+      console.log("Invalid value");
+    } else {
+
+      console.log("Valid value");
+    }
+    
+    var subTotal = $("#subTotal").val();
+    var allTotalAmount = $("#allTotalAmount").val();
+    var vatOutput = $("#vatOutput").val();
+
+
+  
+
+    var mainValue = (discount1Value / 100) * subTotal;
+    var formattedNumber = mainValue.toFixed(2);
+    var discountDecimalNumber = parseFloat(formattedNumber);
+    var discountallTotalAmount = parseFloat(subTotal);
+    var vatOutputFloat = parseFloat(vatOutput);
+
+    discountOutput.val(discountDecimalNumber);
+    discountInput2.val(discount1Value);
+    
+    
+    var afterdiscountallTotalAmount = (vatOutputFloat+discountallTotalAmount)-discountDecimalNumber
+    var discountallTotalAmountAfterFloat = afterdiscountallTotalAmount.toFixed(2);
+
+    $("#allTotalAmount").val(discountallTotalAmountAfterFloat);
+    $("#allTotalDue").val(discountallTotalAmountAfterFloat);
+  });
+  
+});
+// discount End
+
+
+
+// transportCost start
+$(document).ready(function() {
+
+  var transportCost1 = $('#transportCost1');
+  var transportCost2 = $('#transportCost2');
+   
+  transportCost1.on('input', function() {
+    
+    
+    var transportCost1Value = transportCost1.val();
+    console.log("transportCost1Value:", transportCost1Value);
+    if (transportCost1Value == '') {
+      transportCost1Value = 0
+      console.log("Invalid value");
+    } else {
+
+      console.log("Valid value");
+    }
+   
+    
+
+    var subTotal = $("#subTotal").val();
+    var vatOutput = $("#vatOutput").val();
+    var discountOutput = $("#discountOutput").val();
+
+    var allTotalAmount = $("#allTotalDue").val();
+
+    var subTotalNumber = parseFloat(subTotal);
+    var vatOutputNumber = parseFloat(vatOutput);
+    var discountOutputNumber = parseFloat(discountOutput);
+    var transportCostNumber = parseFloat(transportCost1Value);
+
+    transportCost2.val(transportCostNumber);
+
+    var afterdiscountallTotalAmount = (subTotalNumber+vatOutputNumber+transportCostNumber)-discountOutputNumber
+    var transportCostallTotalAmountAfterFloat = afterdiscountallTotalAmount.toFixed(2);
+
+    $("#allTotalAmount").val(transportCostallTotalAmountAfterFloat);
+    $("#allTotalDue").val(transportCostallTotalAmountAfterFloat);
+
+
+
+    //var transportCostNumberdd = typeof transportCostNumber;
+    //var transportCostallTotalAmountdd = typeof transportCostallTotalAmount;
+
+    //console.log("transportCostNumberdd Type:", transportCostNumberdd);
+   // console.log("transportCostallTotalAmountdd Type:", transportCostNumberdd);
+    
+    
+    //var afterdiscountallTotalAmount = transportCostallTotalAmount+transportCostNumber
+    //console.log("transportCostallTotalAmount Type:", transportCostallTotalAmount);
+    //console.log("transportCostNumber Type:", transportCostNumber);
+    //console.log("afterdiscountallTotalAmount Type:", afterdiscountallTotalAmount);
+    //var transportCostallTotalAmountAfterFloat = afterdiscountallTotalAmount.toFixed(2);
+
+    $("#allTotalAmount").val(transportCostallTotalAmountAfterFloat);
+    $("#allTotalDue").val(transportCostallTotalAmountAfterFloat);
+  });
+  
+});
+
+// transportCost End
+
+
+
+
+
+// Paid start
+$(document).ready(function() {
+
+  var paidCost1 = $('#paidCost1');
+   
+  paidCost1.on('input', function() {
+    
+    
+    var paidCost1Value = paidCost1.val();
+    console.log("paidCost1Value:", paidCost1Value);
+    if (paidCost1Value == '') {
+      paidCost1Value = 0
+      console.log("Invalid value");
+    } else {
+
+      console.log("Valid value");
+    }
+
+
+    
+    var allTotalAmount = $("#allTotalAmount").val();
+
+    var paidCostNumber = parseFloat(paidCost1Value);
+    var paidCostallTotalAmount = parseFloat(allTotalAmount);
+
+
+    //var transportCostNumberdd = typeof transportCostNumber;
+   // var transportCostallTotalAmountdd = typeof transportCostallTotalAmount;
+
+    //console.log("transportCostNumberdd Type:", transportCostNumberdd);
+   // console.log("transportCostallTotalAmountdd Type:", transportCostNumberdd);
+    
+    
+    var afterpaidCostallTotalAmount = paidCostallTotalAmount - paidCostNumber
+    var paidCostallTotalAmountAfterFloat = afterpaidCostallTotalAmount.toFixed(2);
+
+    $("#allTotalDue").val(paidCostallTotalAmountAfterFloat);
+  });
+  
+});
+
+// Paid End
+
+
+
+
+$(document).ready(function () {
+  $('#fullPaid').click(function () {
+    
+    
+    var allTotalAmount = $("#allTotalAmount").val();
+    //var paidCost1 = $("#paidCost1").val();
+
+    var paidCostallTotalAmount = parseFloat(allTotalAmount);
+    
+    $("#paidCost1").val(allTotalAmount);
+
+    console.log("paidCostallTotalAmount Type:", paidCostallTotalAmount);
+  });
+  
+});
+
+</script>
+
+
+
+{% endblock %}

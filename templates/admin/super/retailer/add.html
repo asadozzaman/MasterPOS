@@ -1,0 +1,52 @@
+{% extends 'admin/base.html' %}
+{% load static %} 
+{% block title %} Cart lab test {% endblock title %}
+{% block body %}
+<div class="container-fluid add-product">
+  <div class="row"> 
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="product-info">
+            <h5>Retailer</h5>
+            <form method="post" action="{% url 'retailer-add-post' %}">
+              {% csrf_token %}
+              <div class="product-group">
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Retailer Name</label>
+                      <input class="form-control" placeholder="Enter Retailer Name" type="text" name="name">
+                    </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Mobile Number</label>
+                      <input class="form-control" placeholder="Mobile Number" type="text" name="mobile_number">
+                    </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-sm-12">
+                    <div class="mb-3">
+                      <label class="form-label">Address</label>
+                      <input class="form-control" placeholder="Address" type="text" name="address">
+                    </div>
+                  </div>
+                </div>
+                
+              
+                <button class="btn btn-primary me-3" type="submit">ADD </button>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock body %}

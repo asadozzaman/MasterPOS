@@ -1,0 +1,184 @@
+{% load static %}
+
+<div class="sidebar-wrapper">
+    <div>
+      <div class="logo-wrapper">
+        <a href="index.html"
+          ><img
+            class="img-fluid for-light"
+            src="{% static 'assets/images/logo/logo.png' %}"
+            alt=""
+        /></a>
+        
+        <div class="back-btn"><i class="fa fa-angle-left"></i></div>
+        <div class="toggle-sidebar">
+          <i class="fa fa-cog status_toggle middle sidebar-toggle"> </i>
+        </div>
+      </div>
+      <div class="logo-icon-wrapper">
+        <a href="index.html"
+          ><img
+            class="img-fluid"
+            src="{% static 'assets/images/logo/logo-icon1.png' %}"
+            alt=""
+        /></a>
+      </div>
+      <nav class="sidebar-main">
+        <div class="left-arrow" id="left-arrow">
+          <i data-feather="arrow-left"></i>
+        </div>
+        <div id="sidebar-menu">
+          <ul class="sidebar-links" id="simple-bar">
+            <li class="back-btn">
+              <a href="index.html"
+                ><img
+                  class="img-fluid"
+                  src="{% static 'assets/images/logo/logo-icon.png' %}"
+                  alt=""
+              /></a>
+              <div class="mobile-back text-end">
+                <!-- <span>Back</span> -->
+                  <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+              </div>
+            </li>
+            <li class="sidebar-main-title">
+              <h6 class="lan-1">General</h6>
+            </li>
+            <li class="menu-box">
+              <ul>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'admin_dashboard' %}"><i data-feather="cast"> </i><span>Dashboard</span></a></li>
+
+                <li class="sidebar-list">
+                  <a
+                    class="sidebar-link sidebar-title"
+                    href="javascript:void(0)"
+                    ><i data-feather="home"></i
+                    ><span >Category </span></a
+                  >
+                  <ul class="sidebar-submenu">
+                    <li>
+                      <a  href="{% url 'category-add' %}">Add</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'category-list' %}"
+                        >List</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidebar-list">
+                  <a
+                    class="sidebar-link sidebar-title"
+                    href="javascript:void(0)"
+                    ><i data-feather="home"></i
+                    ><span >Unit </span></a
+                  >
+                  <ul class="sidebar-submenu">
+                    <li>
+                      <a  href="{% url 'unit-add' %}">Add</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'unit-list' %}"
+                        >List</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidebar-list">
+                  <a
+                    class="sidebar-link sidebar-title"
+                    href="javascript:void(0)"
+                    ><i data-feather="home"></i
+                    ><span >Product </span></a
+                  >
+                  <ul class="sidebar-submenu">
+                    <li>
+                      <a  href="{% url 'product-add' %}">Add</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'product-list' %}"
+                        >List</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidebar-list">
+                  <a
+                    class="sidebar-link sidebar-title"
+                    href="javascript:void(0)"
+                    ><i data-feather="home"></i
+                    ><span >Customer </span></a
+                  >
+                  <ul class="sidebar-submenu">
+                    <li>
+                      <a  href="{% url 'customer-add' %}">Add</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'customer-list' %}"
+                        >List</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+               
+                <li class="sidebar-list">
+                  <a
+                    class="sidebar-link sidebar-title"
+                    href="javascript:void(0)"
+                    ><i data-feather="home"></i
+                    ><span >Retailer </span></a
+                  >
+                  <ul class="sidebar-submenu">
+                    <li>
+                      <a  href="{% url 'retailer-add' %}">Add</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'retailer-list' %}"
+                        >List</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+               
+              </ul>  
+            </li>
+            <li class="sidebar-main-title">
+              <h6 >Customer Sell</h6>
+            </li>
+            <li class="menu-box"> 
+              <ul>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'sell-page' %}"><i data-feather="cast"> </i><span>Sell</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'deposit-customer-list' %}"><i data-feather="cast"> </i><span>Deposit By Customer</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'deposit-order-list' %}"><i data-feather="cast"> </i><span>Deposit By Order</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'return-list' %}"><i data-feather="cast"> </i><span>Return By Order</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'all-order-list' %}"><i data-feather="cast"> </i><span>All Order List</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'payment-history' %}"><i data-feather="cast"> </i><span>Payment History</span></a></li>
+              </ul>
+            </li>
+
+            <li class="sidebar-main-title">
+              <h6 > Retailer Buy </h6>
+            </li>
+            <li class="menu-box"> 
+              <ul>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-sell-page' %}"><i data-feather="cast"> </i><span>Buy</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-deposit-customer-list' %}"><i data-feather="cast"> </i><span>Deposit For Retailer</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-deposit-order-list' %}"><i data-feather="cast"> </i><span>Deposit By Retailer Order</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-return-list' %}"><i data-feather="cast"> </i><span>Retailer Return By Order</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-all-order-list-retailer' %}"><i data-feather="cast"> </i><span>All Retailer Order List</span></a></li>
+
+                {% comment %} <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-return-list' %}"><i data-feather="cast"> </i><span>Return By Retailer Order</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-all-order-list' %}"><i data-feather="cast"> </i><span>All Retailer Order List</span></a></li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'retailer-payment-history' %}"><i data-feather="cast"> </i><span>Retailer Payment History</span></a></li>
+              </ul>
+            </li>
+             {% endcomment %}
+          
+          </ul>
+        </div>
+        <div class="right-arrow" id="right-arrow">
+          <i data-feather="arrow-right"></i>
+        </div>
+      </nav>
+    </div>
+  </div>
